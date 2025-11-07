@@ -6,10 +6,10 @@
     height: 100%;
     width: 100%;
   }
-  
+
   #viewDiv {
     margin: 0;
-    height:95%;
+    height: 95%;
     width: 100%;
   }
 
@@ -41,7 +41,6 @@
     align-content: center;
     font-weight: bold;
   }
-
 </style>
 
 <html>
@@ -59,9 +58,15 @@
   <div id="viewDiv"></div>
   <div id="buttonContainer">
     <button class="header-button" id="legendButton">Show Legend</button>
-    <button class="header-button" onclick="location.href='https://www.minneapolis.org/things-to-do/arts-culture/museums/';">Minneapolis Museum Info</button>
-    <button class="header-button" onclick="location.href='https://www.visitsaintpaul.com/things-to-do/museums-history/';">Saint Paul Museum Info</button>
-  </div>
+    <button class="header-button"
+      onclick="window.open('https://www.minneapolis.org/things-to-do/arts-culture/museums/', '_blank')">
+      Minneapolis Museum Info
+    </button>
+    <button class="header-button"
+      onclick="window.open('https://www.visitsaintpaul.com/things-to-do/museums-history/', '_blank')">
+      Saint Paul Museum Info
+    </button>
+
 </body>
 
 </html>
