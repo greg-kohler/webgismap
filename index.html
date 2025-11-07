@@ -1,28 +1,47 @@
 <style>
-html,
-body,
-#viewDiv {
-  padding: 0;
-  margin: 0;
-  height: 100%;
-  width: 100%;
-}
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+  
+  #viewDiv {
+    margin: 0;
+    height:95%;
+    width: 100%;
+  }
 
-#buttonContainer {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
+  #buttonContainer {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+  }
 
-.header-bar {
-  top: 0;
-  width: 100%;
-  height: 5vh;
-  background-color: black;
-  color: white;
-  padding: 1vw;
-  justify-content: center;
-}
+  .header-button {
+    background-color: #DDA448;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    font-weight: normal;
+    margin-left: 1vw;
+    padding: 5px;
+  }
+
+  .header-bar {
+    top: 0;
+    width: 100%;
+    height: 5%;
+    background-color: #BB342F;
+    color: white;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    justify-content: center;
+    align-content: center;
+    font-weight: bold;
+  }
+
 </style>
 
 <html>
@@ -38,24 +57,50 @@ body,
 <body>
   <div class="header-bar">Museum Scores</div>
   <div id="viewDiv"></div>
-  <!--A container the button-->
   <div id="buttonContainer">
-    <button id="clickButton">Click</button>
+    <button class="header-button" id="legendButton">Show Legend</button>
+    <button class="header-button" onclick="location.href='https://www.minneapolis.org/things-to-do/arts-culture/museums/';">Minneapolis Museum Info</button>
+    <button class="header-button" onclick="location.href='https://www.visitsaintpaul.com/things-to-do/museums-history/';">Saint Paul Museum Info</button>
   </div>
 </body>
 
 </html>
 
-<script>require(["esri/views/MapView", "esri/WebMap"], (MapView, WebMap) => {
-  const webmap = new WebMap({
-    portalItem: {
-      id: "4ec666f53f764f8aacbe1e2af33b1d21"
-    }
+<script>
+  require(["esri/views/MapView", "esri/WebMap", "esri/widgets/Legend"], (MapView, WebMap, Legend) => {
+    const webmap = new WebMap({
+      portalItem: {
+        id: "4ec666f53f764f8aacbe1e2af33b1d21"
+      }
+    });
+
+    const view = new MapView({
+      map: webmap,
+      container: "viewDiv",
+      zoom: 11
+    });
+
+    let legend;
+    let legendVisible = false;
+
+    view.when(() => {
+      const legend = new Legend({
+        view: view
+      });
+
+      const legendButton = document.getElementById("legendButton");
+      legendButton.addEventListener("click", () => {
+        if (!legendVisible) {
+          view.ui.add(legend, "bottom-left");
+          legendButton.textContent = "Hide Legend";
+          legendVisible = true;
+        } else {
+          view.ui.remove(legend);
+          legendButton.textContent = "Show Legend";
+          legendVisible = false;
+        }
+      })
+    });
   });
 
-  const view = new MapView({
-    map: webmap,
-    container: "viewDiv"
-  });
-});
 </script>
